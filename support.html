@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blackbird Support - Get help and answers to your questions">
+  <meta name="theme-color" content="#0A0F0A">
+  <title>Support | BLACKBIRD</title>
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .support-page {
+      padding-top: 80px;
+      min-height: 100vh;
+    }
+    .support-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    .support-header {
+      margin-bottom: 48px;
+    }
+    .support-header h1 {
+      font-size: 28px;
+      letter-spacing: 3px;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .support-meta {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: rgba(74, 222, 128, 0.6);
+    }
+    .support-section {
+      margin-bottom: 36px;
+    }
+    .support-section h2 {
+      font-size: 15px;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .support-section h2::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 16px;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+    .support-section p,
+    .support-section li {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+    .support-section ul {
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+    .support-section li {
+      margin-bottom: 6px;
+    }
+    .support-section li::marker {
+      color: var(--green);
+    }
+    .support-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 32px;
+      padding: 8px 0;
+    }
+    .support-back:hover { opacity: 0.8; }
+    .support-back svg {
+      width: 16px;
+      height: 16px;
+    }
+    .support-terminal {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 20px 0;
+      font-size: 12px;
+    }
+    .support-terminal .label {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .support-terminal .value {
+      color: var(--text-dim);
+    }
+
+    /* Ticket Form */
+    .support-form {
+      margin-top: 24px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #fff;
+      font-family: inherit;
+      transition: border-color 0.3s;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--green);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+    .form-group select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234ade80' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+    .form-group select option {
+      background: #0a0f0a;
+      color: #fff;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid var(--green);
+      color: var(--green);
+      padding: 12px 28px;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.3s;
+      margin-top: 8px;
+    }
+    .form-submit:hover {
+      background: var(--green);
+      color: #0a0f0a;
+    }
+    .form-submit svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Success Message */
+    .ticket-success {
+      display: none;
+      margin-top: 24px;
+    }
+    .ticket-success.active {
+      display: block;
+    }
+    .success-box {
+      background: var(--bg-deep);
+      border: 1px solid var(--green);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+    .success-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 2px solid var(--green);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--green);
+    }
+    .success-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    .success-box h3 {
+      font-size: 14px;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .success-box p {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+    .success-box .ticket-id {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 6px 14px;
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--green);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="img/logo.png" alt="Blackbird" width="32" height="32">
+        <span class="nav-logo-text">BLKBRD</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html#features">DATA</a>
+        <a href="index.html#globe">GLOBAL</a>
+        <a href="index.html#download">DEPLOY</a>
+        <a href="privacy.html">PRIVACY</a>
+        <a href="support.html">SUPPORT</a>
+      </div>
+      <button class="nav-menu-btn" id="navMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="index.html#features">DATA</a>
+      <a href="index.html#globe">GLOBAL</a>
+      <a href="index.html#download">DEPLOY</a>
+      <a href="privacy.html">PRIVACY</a>
+      <a href="support.html">SUPPORT</a>
+    </div>
+  </nav>
+
+  <div class="scanlines" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></div>
+
+  <main class="support-page">
+    <div class="support-container">
+
+      <a href="index.html" class="support-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        RETURN TO BASE
+      </a>
+
+      <div class="support-header">
+        <div class="section-header">
+          <div class="section-bar"></div>
+          <h1>SUPPORT</h1>
+        </div>
+        <p class="support-meta">ASSISTANCE CENTER &bull; CLASSIFICATION: PUBLIC</p>
+      </div>
+
+      <div class="support-section">
+        <h2>OVERVIEW</h2>
+        <p>Welcome to Blackbird Support. Here you can find answers to common questions, troubleshooting steps, and ways to get in touch with our team. We are committed to ensuring you have the best experience with the Blackbird Defense Data Platform.</p>
+      </div>
+
+      <div class="support-section">
+        <h2>FREQUENTLY ASKED QUESTIONS</h2>
+
+        <div class="support-terminal">
+          <p><span class="label">Q:</span> <span class="value">What is Blackbird?</span></p>
+        </div>
+        <p>Blackbird is a defense data platform that provides real-time defense news, weapon system profiles, defense company information, and global budget analytics. It is available on both iOS and Android.</p>
+
+        <div class="support-terminal">
+          <p><span class="label">Q:</span> <span class="value">Is the app free to use?</span></p>
+        </div>
+        <p>Yes, Blackbird is free to download and use. The app is supported by advertisements through Google AdMob. All core features including news feeds, weapon profiles, company data, and budget analytics are available at no cost.</p>
+
+        <div class="support-terminal">
+          <p><span class="label">Q:</span> <span class="value">Which languages are supported?</span></p>
+        </div>
+        <p>Blackbird currently supports English and Turkish. You can switch between languages at any time within the app settings.</p>
+
+        <div class="support-terminal">
+          <p><span class="label">Q:</span> <span class="value">How often is the data updated?</span></p>
+        </div>
+        <p>Defense news is updated in real-time from curated OSINT sources. Weapon profiles, company data, and budget statistics are updated periodically to ensure accuracy.</p>
+
+        <div class="support-terminal">
+          <p><span class="label">Q:</span> <span class="value">Can I export data from the app?</span></p>
+        </div>
+        <p>Yes, weapon profile datasheets can be exported as PDF files for offline reference and sharing.</p>
+      </div>
+
+      <div class="support-section">
+        <h2>TROUBLESHOOTING</h2>
+        <p>If you are experiencing issues with the app, try the following steps:</p>
+        <ul>
+          <li><strong>App not loading:</strong> Check your internet connection and try restarting the app.</li>
+          <li><strong>News feed not updating:</strong> Pull down to refresh or check your network settings. Ensure you have a stable connection.</li>
+          <li><strong>Globe not rendering:</strong> Make sure hardware acceleration is enabled on your device. Try closing other apps to free up memory.</li>
+          <li><strong>Language not changing:</strong> Go to app settings, select your preferred language, and restart the app.</li>
+          <li><strong>PDF export failing:</strong> Ensure your device has sufficient storage space and the app has the necessary permissions.</li>
+        </ul>
+      </div>
+
+      <div class="support-section">
+        <h2>SYSTEM REQUIREMENTS</h2>
+        <div class="support-terminal">
+          <p><span class="label">PLATFORM:</span> <span class="value">iOS & Android</span></p>
+        </div>
+        <ul>
+          <li><strong>iOS:</strong> Requires iOS 14.0 or later. Compatible with iPhone and iPad.</li>
+          <li><strong>Android:</strong> Requires Android 8.0 (API level 26) or later.</li>
+          <li><strong>Network:</strong> Active internet connection required for real-time data.</li>
+          <li><strong>Storage:</strong> Minimum 100 MB of free space recommended.</li>
+        </ul>
+      </div>
+
+      <div class="support-section">
+        <h2>FEEDBACK & SUGGESTIONS</h2>
+        <p>We value your feedback. If you have suggestions for new features, data sources, or improvements, please reach out to us. Your input helps us make Blackbird better for everyone.</p>
+      </div>
+
+      <div class="support-section">
+        <h2>SUBMIT A TICKET</h2>
+        <p>Have a question, bug report, or feature request? Fill out the form below and our team will get back to you.</p>
+
+        <form class="support-form" id="supportForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>CALLSIGN</label>
+              <input type="text" id="ticketName" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label>COMM CHANNEL</label>
+              <input type="email" id="ticketEmail" placeholder="your@email.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>CATEGORY</label>
+            <select id="ticketCategory" required>
+              <option value="" disabled selected>Select a category</option>
+              <option value="bug">Bug Report</option>
+              <option value="feature">Feature Request</option>
+              <option value="account">Account Issue</option>
+              <option value="data">Data Inquiry</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>SUBJECT</label>
+            <input type="text" id="ticketSubject" placeholder="Brief description of your issue" required>
+          </div>
+
+          <div class="form-group">
+            <label>MESSAGE</label>
+            <textarea id="ticketMessage" placeholder="Describe your issue or request in detail..." required></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+            </svg>
+            TRANSMIT
+          </button>
+        </form>
+
+        <div class="ticket-success" id="ticketSuccess">
+          <div class="success-box">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+            </div>
+            <h3>TRANSMISSION RECEIVED</h3>
+            <p>Your support ticket has been submitted successfully. Our team will review your request and respond within 48 hours.</p>
+            <span class="ticket-id" id="ticketIdDisplay">TICKET #BRD-0000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="support-section">
+        <h2>DIRECT CONTACT</h2>
+        <p>You can also reach us directly via email:</p>
+        <div class="support-terminal">
+          <p><span class="label">EMAIL:</span> <span class="value">vahandag@gmail.com</span></p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/logo.png" alt="Blackbird" width="28" height="28">
+        <span>BLACKBIRD</span>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+        <a href="mailto:vahandag@gmail.com">Contact</a>
+      </div>
+      <div class="footer-copy">
+        <p>&copy; 2025 Blackbird. All rights reserved.</p>
+        <p class="footer-slogan">PER ASPERA AD ASTRA</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('navMenuBtn');
+    const mobileMenu = document.getElementById('navMobile');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menuBtn.classList.remove('active');
+          mobileMenu.classList.remove('active');
+        });
+      });
+    }
+
+    // Support form submission
+    const supportForm = document.getElementById('supportForm');
+    const ticketSuccess = document.getElementById('ticketSuccess');
+    const ticketIdDisplay = document.getElementById('ticketIdDisplay');
+
+    if (supportForm) {
+      supportForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Generate random ticket ID
+        const ticketNum = Math.floor(1000 + Math.random() * 9000);
+        ticketIdDisplay.textContent = 'TICKET #BRD-' + ticketNum;
+
+        // Hide form, show success
+        supportForm.style.display = 'none';
+        ticketSuccess.classList.add('active');
+
+        // Scroll to success message
+        ticketSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    }
+  </script>
+</body>
+</html>
