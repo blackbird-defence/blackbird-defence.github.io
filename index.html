@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blackbird - Defense Data Platform. Real-time defense news, weapon profiles, company data, and global budget analytics.">
+  <meta name="theme-color" content="#0A0F0A">
+  <title>BLACKBIRD | Defense Data Platform</title>
+  <link rel="icon" type="image/png" href="img/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <img src="img/logo.png" alt="Blackbird" width="32" height="32">
+        <span class="nav-logo-text">BLKBRD</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">DATA</a>
+        <a href="#globe">GLOBAL</a>
+        <a href="#download">DEPLOY</a>
+        <a href="privacy.html">PRIVACY</a>
+      </div>
+      <button class="nav-menu-btn" id="navMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile menu -->
+    <div class="nav-mobile" id="navMobile">
+      <a href="#features">DATA</a>
+      <a href="#globe">GLOBAL</a>
+      <a href="#download">DEPLOY</a>
+      <a href="privacy.html">PRIVACY</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+    <div class="scanlines"></div>
+    <div class="corner-brackets">
+      <div class="corner corner-tl"></div>
+      <div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div>
+      <div class="corner corner-br"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-logo">
+        <img src="img/logo.png" alt="Blackbird Logo" class="logo-img">
+        <div class="logo-glow"></div>
+      </div>
+
+      <div class="decode-container" id="decodeContainer">
+        <div class="decode-border">
+          <span class="decode-char" data-index="0">B</span>
+          <span class="decode-char" data-index="1">L</span>
+          <span class="decode-char" data-index="2">A</span>
+          <span class="decode-char" data-index="3">C</span>
+          <span class="decode-char" data-index="4">K</span>
+          <span class="decode-char" data-index="5">B</span>
+          <span class="decode-char" data-index="6">I</span>
+          <span class="decode-char" data-index="7">R</span>
+          <span class="decode-char" data-index="8">D</span>
+        </div>
+      </div>
+
+      <p class="hero-slogan" id="heroSlogan">PER ASPERA AD ASTRA</p>
+
+      <div class="hero-status">
+        <div class="status-bar">
+          <div class="status-bar-fill" id="statusBarFill"></div>
+        </div>
+        <p class="status-text" id="statusText">INITIALIZING SYSTEM...</p>
+      </div>
+    </div>
+
+    <a href="#features" class="scroll-indicator" aria-label="Scroll down">
+      <div class="scroll-arrow"></div>
+      <span>SCROLL TO CONTINUE</span>
+    </a>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="features" id="features">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <h2>DATA MODULES</h2>
+        <div class="section-badge">ACTIVE</div>
+      </div>
+      <p class="section-subtitle">Comprehensive defense data at your fingertips. Real-time OSINT streams from global sources.</p>
+
+      <div class="features-grid">
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/>
+            </svg>
+          </div>
+          <h3>DEFENSE NEWS</h3>
+          <p class="feature-tag">LIVE FEED</p>
+          <p class="feature-desc">Real-time breaking defense news in English and Turkish. Curated OSINT from global sources with category filtering.</p>
+          <div class="feature-specs">
+            <div class="spec"><span class="spec-label">LANGUAGES</span><span class="spec-value">EN / TR</span></div>
+            <div class="spec"><span class="spec-label">UPDATE</span><span class="spec-value">REAL-TIME</span></div>
+          </div>
+        </div>
+
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3>WEAPON PROFILES</h3>
+          <p class="feature-tag">DATABASE</p>
+          <p class="feature-desc">Comprehensive weapon and equipment database with detailed specifications, images, and PDF datasheet export capability.</p>
+          <div class="feature-specs">
+            <div class="spec"><span class="spec-label">EXPORT</span><span class="spec-value">PDF</span></div>
+            <div class="spec"><span class="spec-label">SPECS</span><span class="spec-value">DETAILED</span></div>
+          </div>
+        </div>
+
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5h6v5m-6 0h6"/>
+            </svg>
+          </div>
+          <h3>COMPANY PROFILES</h3>
+          <p class="feature-tag">PROFILES</p>
+          <p class="feature-desc">Defense industry company profiles with acquisition data, product lines, financial info, and organizational structure.</p>
+          <div class="feature-specs">
+            <div class="spec"><span class="spec-label">DATA</span><span class="spec-value">COMPLETE</span></div>
+            <div class="spec"><span class="spec-label">TRACKING</span><span class="spec-value">M&A</span></div>
+          </div>
+        </div>
+
+        <div class="feature-card" data-aos>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 004 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3>BUDGET ANALYTICS</h3>
+          <p class="feature-tag">STATISTICS</p>
+          <p class="feature-desc">Global defense budget statistics and analytics. Track spending trends, compare nations, and analyze procurement data.</p>
+          <div class="feature-specs">
+            <div class="spec"><span class="spec-label">SCOPE</span><span class="spec-value">GLOBAL</span></div>
+            <div class="spec"><span class="spec-label">DATA</span><span class="spec-value">ANNUAL</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GLOBE ============ -->
+  <section class="globe-section" id="globe">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <h2>GLOBAL SITUATION MAP</h2>
+        <div class="section-badge">LIVE</div>
+      </div>
+      <p class="section-subtitle">Interactive 3D defense overview globe. Drag to rotate, scroll to zoom.</p>
+
+      <div class="globe-wrapper">
+        <canvas id="globeCanvas"></canvas>
+        <div class="globe-hud">
+          <div class="hud-item hud-tl">
+            <span class="hud-label">LAT</span>
+            <span class="hud-value" id="hudLat">0.00</span>
+          </div>
+          <div class="hud-item hud-tr">
+            <span class="hud-label">LON</span>
+            <span class="hud-value" id="hudLon">0.00</span>
+          </div>
+          <div class="hud-item hud-bl">
+            <span class="hud-label">ZOOM</span>
+            <span class="hud-value" id="hudZoom">1.0x</span>
+          </div>
+          <div class="hud-item hud-br">
+            <span class="hud-label">STATUS</span>
+            <span class="hud-value hud-active">ACTIVE</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TECH SPECS ============ -->
+  <section class="tech-section" id="tech">
+    <div class="section-container">
+      <div class="section-header">
+        <div class="section-bar"></div>
+        <h2>SYSTEM SPECIFICATIONS</h2>
+        <div class="section-badge">v1.0</div>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-stat">
+          <div class="tech-stat-value" data-count="50">0</div>
+          <div class="tech-stat-suffix">+</div>
+          <div class="tech-stat-label">WEAPON SYSTEMS</div>
+        </div>
+        <div class="tech-stat">
+          <div class="tech-stat-value" data-count="30">0</div>
+          <div class="tech-stat-suffix">+</div>
+          <div class="tech-stat-label">DEFENSE COMPANIES</div>
+        </div>
+        <div class="tech-stat">
+          <div class="tech-stat-value" data-count="190">0</div>
+          <div class="tech-stat-suffix">+</div>
+          <div class="tech-stat-label">COUNTRIES TRACKED</div>
+        </div>
+        <div class="tech-stat">
+          <div class="tech-stat-value" data-count="2">0</div>
+          <div class="tech-stat-suffix"></div>
+          <div class="tech-stat-label">LANGUAGES</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DOWNLOAD ============ -->
+  <section class="download-section" id="download">
+    <div class="section-container">
+      <div class="download-content">
+        <div class="download-text">
+          <div class="section-header">
+            <div class="section-bar"></div>
+            <h2>DEPLOY TO YOUR DEVICE</h2>
+          </div>
+          <p class="download-desc">Access defense data on the go. Available on iOS and Android platforms.</p>
+          <div class="terminal-block">
+            <div class="terminal-header">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-title">blackbird_deploy.sh</span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="t-prompt">$</span> <span class="t-cmd">blackbird</span> --install --platform=mobile</p>
+              <p><span class="t-comment"># Initializing secure connection...</span></p>
+              <p><span class="t-comment"># Downloading defense modules...</span></p>
+              <p><span class="t-success">[OK]</span> Deployment ready. Select your platform below.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="download-buttons">
+          <a href="#" class="store-btn" id="appStoreBtn">
+            <div class="store-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+              </svg>
+            </div>
+            <div class="store-text">
+              <span class="store-label">Download on the</span>
+              <span class="store-name">App Store</span>
+            </div>
+          </a>
+
+          <a href="#" class="store-btn" id="playStoreBtn">
+            <div class="store-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.395 12l2.303-2.492zM5.864 2.658L16.8 9.99l-2.302 2.302L5.864 2.658z"/>
+              </svg>
+            </div>
+            <div class="store-text">
+              <span class="store-label">Get it on</span>
+              <span class="store-name">Google Play</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/logo.png" alt="Blackbird" width="28" height="28">
+        <span>BLACKBIRD</span>
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="mailto:vahandag@gmail.com">Contact</a>
+      </div>
+      <div class="footer-copy">
+        <p>&copy; 2025 Blackbird. All rights reserved.</p>
+        <p class="footer-slogan">PER ASPERA AD ASTRA</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data/countries-data.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/globe.js"></script>
+</body>
+</html>
