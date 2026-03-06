@@ -137,6 +137,12 @@
       if (heroStatus) heroStatus.classList.add('visible');
       animateStatusMessages();
     }, 600);
+
+    // Show hero store buttons
+    setTimeout(() => {
+      const heroStoreButtons = document.querySelector('.hero-store-buttons');
+      if (heroStoreButtons) heroStoreButtons.classList.add('visible');
+    }, 3200);
   }
 
   function animateStatusMessages() {
