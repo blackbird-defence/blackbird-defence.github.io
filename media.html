@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Blackbird Media - Screenshots and videos from Blackbird App and Admin Panel"
+    />
+    <meta name="theme-color" content="#0A0F0A" />
+    <title>Media | BLACKBIRD</title>
+    <link rel="icon" type="image/png" href="img/logo.png" />
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .media-page {
+        padding-top: 80px;
+        min-height: 100vh;
+      }
+      .media-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+      .media-header {
+        margin-bottom: 48px;
+      }
+      .media-header h1 {
+        font-size: 28px;
+        letter-spacing: 3px;
+        color: #fff;
+        margin-bottom: 12px;
+      }
+      .media-meta {
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: rgba(74, 222, 128, 0.6);
+      }
+      .media-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--green);
+        margin-bottom: 32px;
+        padding: 8px 0;
+      }
+      .media-back:hover {
+        opacity: 0.8;
+      }
+      .media-back svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Filter tabs */
+      .media-filters {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 36px;
+        flex-wrap: wrap;
+      }
+      .filter-btn {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        padding: 8px 20px;
+        font-size: 11px;
+        letter-spacing: 2px;
+        font-family: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.3s;
+      }
+      .filter-btn:hover {
+        border-color: rgba(74, 222, 128, 0.4);
+        color: var(--green);
+      }
+      .filter-btn.active {
+        background: rgba(74, 222, 128, 0.1);
+        border-color: var(--green);
+        color: var(--green);
+      }
+
+      /* Media grid */
+      .media-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+        gap: 24px;
+      }
+
+      .media-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition:
+          border-color 0.3s,
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+      .media-card:hover {
+        border-color: rgba(74, 222, 128, 0.4);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 32px rgba(74, 222, 128, 0.08);
+      }
+      .media-card::before {
+        content: '';
+        display: block;
+        height: 2px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--green),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+      .media-card:hover::before {
+        opacity: 1;
+      }
+
+      /* Video wrapper */
+      .media-visual {
+        position: relative;
+        background: #000;
+        cursor: pointer;
+      }
+      .media-visual video,
+      .media-visual img {
+        width: 100%;
+        display: block;
+        object-fit: cover;
+      }
+      .media-visual video {
+        max-height: 400px;
+      }
+      .media-visual img {
+        max-height: 400px;
+      }
+
+      /* Play overlay */
+      .play-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(10, 15, 10, 0.5);
+        transition: opacity 0.3s;
+      }
+      .play-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .play-btn {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 2px solid rgba(74, 222, 128, 0.6);
+        background: rgba(10, 15, 10, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s;
+      }
+      .play-btn svg {
+        width: 28px;
+        height: 28px;
+        color: var(--green);
+        margin-left: 3px;
+      }
+      .media-visual:hover .play-btn {
+        border-color: var(--green);
+        background: rgba(74, 222, 128, 0.15);
+        box-shadow: 0 0 24px rgba(74, 222, 128, 0.3);
+        transform: scale(1.05);
+      }
+
+      /* Card info */
+      .media-info {
+        padding: 20px;
+      }
+      .media-info-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+      .media-title {
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: #fff;
+      }
+      .media-badge {
+        padding: 3px 8px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--green);
+        background: rgba(74, 222, 128, 0.12);
+        border: 1px solid rgba(74, 222, 128, 0.3);
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+      .media-desc {
+        font-size: 12px;
+        color: var(--text-dim);
+        line-height: 1.7;
+        margin-bottom: 14px;
+      }
+      .media-tags {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .media-tag {
+        font-size: 9px;
+        letter-spacing: 1px;
+        color: rgba(74, 222, 128, 0.6);
+        background: var(--bg-deep);
+        padding: 4px 10px;
+        border-radius: 4px;
+      }
+
+      /* Fullscreen modal */
+      .media-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 2000;
+        background: rgba(10, 15, 10, 0.95);
+        backdrop-filter: blur(12px);
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .media-modal.active {
+        display: flex;
+      }
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        background: none;
+        border: 1px solid var(--border);
+        color: var(--text-dim);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 20px;
+        font-family: inherit;
+        transition: all 0.3s;
+        z-index: 2001;
+      }
+      .modal-close:hover {
+        border-color: var(--green);
+        color: var(--green);
+      }
+      .modal-content {
+        max-width: 90vw;
+        max-height: 85vh;
+        position: relative;
+      }
+      .modal-content video,
+      .modal-content img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+      }
+      .modal-label {
+        text-align: center;
+        margin-top: 16px;
+        font-size: 12px;
+        letter-spacing: 2px;
+        color: var(--text-dim);
+      }
+
+      /* Empty state */
+      .media-empty {
+        text-align: center;
+        padding: 80px 24px;
+        display: none;
+      }
+      .media-empty.active {
+        display: block;
+      }
+      .media-empty-icon {
+        width: 48px;
+        height: 48px;
+        color: rgba(74, 222, 128, 0.3);
+        margin: 0 auto 16px;
+      }
+      .media-empty p {
+        font-size: 12px;
+        color: var(--text-dim);
+        letter-spacing: 1px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .media-grid {
+          grid-template-columns: 1fr;
+        }
+        .media-visual video,
+        .media-visual img {
+          max-height: 280px;
+        }
+        .media-container {
+          padding: 30px 16px 60px;
+        }
+      }
+      @media (max-width: 480px) {
+        .media-filters {
+          gap: 8px;
+        }
+        .filter-btn {
+          padding: 6px 14px;
+          font-size: 10px;
+        }
+        .play-btn {
+          width: 52px;
+          height: 52px;
+        }
+        .play-btn svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar scrolled">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="img/logo.png" alt="Blackbird" width="32" height="32" />
+          <span class="nav-logo-text">BLKBRD</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#features">DATA</a>
+          <a href="index.html#globe">GLOBAL</a>
+          <a href="index.html#download">DEPLOY</a>
+          <a href="media.html">MEDIA</a>
+          <a href="privacy.html">PRIVACY</a>
+          <a href="support.html">SUPPORT</a>
+        </div>
+        <button class="nav-menu-btn" id="navMenuBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="nav-mobile" id="navMobile">
+        <a href="index.html#features">DATA</a>
+        <a href="index.html#globe">GLOBAL</a>
+        <a href="index.html#download">DEPLOY</a>
+        <a href="media.html">MEDIA</a>
+        <a href="privacy.html">PRIVACY</a>
+        <a href="support.html">SUPPORT</a>
+      </div>
+    </nav>
+
+    <div
+      class="scanlines"
+      style="position: fixed; inset: 0; z-index: 0; pointer-events: none"
+    ></div>
+
+    <main class="media-page">
+      <div class="media-container">
+        <a href="index.html" class="media-back">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
+          RETURN TO BASE
+        </a>
+
+        <div class="media-header">
+          <div class="section-header">
+            <div class="section-bar"></div>
+            <h1>MEDIA CENTER</h1>
+            <div class="section-badge">GALLERY</div>
+          </div>
+          <p class="media-meta">
+            VISUAL INTELLIGENCE &bull; BLACKBIRD APP & ADMIN PANEL
+          </p>
+        </div>
+
+        <!-- Filters -->
+        <div class="media-filters">
+          <button class="filter-btn active" data-filter="all">ALL</button>
+          <button class="filter-btn" data-filter="video">VIDEO</button>
+          <button class="filter-btn" data-filter="screenshot">
+            SCREENSHOT
+          </button>
+        </div>
+
+        <!-- Media Grid -->
+        <div class="media-grid" id="mediaGrid">
+          <!-- Video: AI Weapon Search -->
+          <div class="media-card" data-type="video">
+            <div
+              class="media-visual"
+              data-media="video"
+              data-src="videos/ai_searching_weapons.mp4"
+            >
+              <video
+                src="videos/ai_searching_weapons.mp4"
+                preload="metadata"
+                muted
+              ></video>
+              <div class="play-overlay">
+                <div class="play-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="media-info">
+              <div class="media-info-top">
+                <span class="media-title">AI WEAPON SEARCH</span>
+                <span class="media-badge">VIDEO</span>
+              </div>
+              <p class="media-desc">
+                Demonstration of the AI-powered weapon search functionality
+                within the Blackbird Admin Panel. Search and identify weapon
+                systems using natural language queries.
+              </p>
+              <div class="media-tags">
+                <span class="media-tag">BLACKBIRD APP</span>
+                <span class="media-tag">AI SEARCH</span>
+                <span class="media-tag">WEAPONS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty state for filtered results -->
+        <div class="media-empty" id="mediaEmpty">
+          <div class="media-empty-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+            >
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <p>NO MEDIA FOUND FOR THIS FILTER</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Fullscreen Modal -->
+    <div class="media-modal" id="mediaModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="img/logo.png" alt="Blackbird" width="28" height="28" />
+          <span>BLACKBIRD</span>
+        </div>
+        <div class="footer-links">
+          <a href="media.html">Media</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="support.html">Support</a>
+          <a href="mailto:vahandag@gmail.com">Contact</a>
+        </div>
+        <div class="footer-copy">
+          <p>&copy; 2025 Blackbird. All rights reserved.</p>
+          <p class="footer-slogan">PER ASPERA AD ASTRA</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const menuBtn = document.getElementById('navMenuBtn');
+      const mobileMenu = document.getElementById('navMobile');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => {
+          menuBtn.classList.toggle('active');
+          mobileMenu.classList.toggle('active');
+        });
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => {
+            menuBtn.classList.remove('active');
+            mobileMenu.classList.remove('active');
+          });
+        });
+      }
+
+      // Filter functionality
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const mediaCards = document.querySelectorAll('.media-card');
+      const mediaEmpty = document.getElementById('mediaEmpty');
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach((b) => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filter = btn.dataset.filter;
+          let visibleCount = 0;
+
+          mediaCards.forEach((card) => {
+            if (filter === 'all' || card.dataset.type === filter) {
+              card.style.display = '';
+              visibleCount++;
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          mediaEmpty.classList.toggle('active', visibleCount === 0);
+        });
+      });
+
+      // Video play/pause on card
+      document
+        .querySelectorAll('.media-visual[data-media="video"]')
+        .forEach((visual) => {
+          const video = visual.querySelector('video');
+          const overlay = visual.querySelector('.play-overlay');
+
+          visual.addEventListener('click', () => {
+            if (video.paused) {
+              video.muted = false;
+              video.controls = true;
+              video.play();
+              overlay.classList.add('hidden');
+            } else {
+              video.pause();
+              video.controls = false;
+              overlay.classList.remove('hidden');
+            }
+          });
+
+          video.addEventListener('ended', () => {
+            video.controls = false;
+            overlay.classList.remove('hidden');
+          });
+        });
+
+      // Fullscreen modal for images
+      const modal = document.getElementById('mediaModal');
+      const modalContent = document.getElementById('modalContent');
+      const modalClose = document.getElementById('modalClose');
+
+      document
+        .querySelectorAll('.media-visual[data-media="image"]')
+        .forEach((visual) => {
+          visual.addEventListener('click', () => {
+            const src = visual.dataset.src;
+            const title = visual
+              .closest('.media-card')
+              .querySelector('.media-title').textContent;
+            modalContent.innerHTML =
+              '<img src="' +
+              src +
+              '" alt="' +
+              title +
+              '"><div class="modal-label">' +
+              title +
+              '</div>';
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+          });
+        });
+
+      modalClose.addEventListener('click', () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = '';
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modalClose.click();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          modalClose.click();
+        }
+      });
+    </script>
+  </body>
+</html>
